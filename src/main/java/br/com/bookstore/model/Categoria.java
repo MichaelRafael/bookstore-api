@@ -1,17 +1,23 @@
 package br.com.bookstore.model;
 
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Categoria {
+@Entity
+public class Categoria implements Serializable {
 
+    private static final long serialVersionUID = 1l;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String descricao;
 
-    @OneToMany
+    @OneToMany(mappedBy = "categoria")
     private List<Livro> livro = new ArrayList<>();
 
     public Categoria() {
