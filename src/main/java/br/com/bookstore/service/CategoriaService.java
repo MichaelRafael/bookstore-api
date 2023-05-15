@@ -1,5 +1,6 @@
 package br.com.bookstore.service;
 
+import br.com.bookstore.exceptions.ObjectNotFoundException;
 import br.com.bookstore.model.Categoria;
 import br.com.bookstore.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,6 @@ public class CategoriaService {
 
     public Categoria findById(Integer id) {
         Optional<Categoria> obj = categoriaRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
     }
 }
