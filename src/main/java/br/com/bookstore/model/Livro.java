@@ -1,8 +1,10 @@
 package br.com.bookstore.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,10 +16,15 @@ public class Livro implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "O campo TÍTULO é requerido")
+    @Length(min = 3, max = 50, message = "O campo TÍTULO deve ter entre 3 e 50 caracteres")
     private String titulo;
+    @NotBlank(message = "O campo NOME DO AUTOR é requerido")
+    @Length(min = 3, max = 50, message = "O campo NOME DO AUTOR deve ter entre 3 e 50 caracteres")
     private String nome_autor;
+    @NotBlank(message = "O campo TEXTO é requerido")
+    @Length(min = 10, max = 2000000, message = "O campo TEXTO deve ter entre 10 e 2000000 caracteres")
     private String texto;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "categoria_id")

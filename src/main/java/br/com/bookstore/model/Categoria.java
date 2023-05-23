@@ -1,6 +1,9 @@
 package br.com.bookstore.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +11,21 @@ import java.util.Objects;
 
 @Entity
 public class Categoria implements Serializable {
-
     private static final long serialVersionUID = 1l;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "O campo NOME é requerido")
+    @Length(min = 3, max = 100, message = "O campo NOME deve ter entre 3 e 100 caracteres")
     private String nome;
+
+    @NotBlank(message = "O campo DESCRIÇÃO é requerido")
+    @Length(min = 3, max = 200, message = "O campo DESCRIÇÃO deve ter entre 3 e 200 caracteres")
     private String descricao;
 
     @OneToMany(mappedBy = "categoria")
-    private List<Livro> livro = new ArrayList<>();
+    private List<Livro> livros = new ArrayList<>();
 
     public Categoria() {
         super();
@@ -28,6 +35,7 @@ public class Categoria implements Serializable {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
+
     }
 
     public Integer getId() {
@@ -54,12 +62,12 @@ public class Categoria implements Serializable {
         this.descricao = descricao;
     }
 
-    public List<Livro> getLivro() {
-        return livro;
+    public List<Livro> getLivros() {
+        return livros;
     }
 
-    public void setLivro(List<Livro> livro) {
-        this.livro = livro;
+    public void setLivros(List<Livro> livro) {
+        this.livros = livro;
     }
 
     @Override
@@ -74,4 +82,6 @@ public class Categoria implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }

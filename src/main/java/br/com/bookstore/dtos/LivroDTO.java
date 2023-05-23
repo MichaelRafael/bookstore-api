@@ -1,14 +1,29 @@
 package br.com.bookstore.dtos;
 
-import br.com.bookstore.model.Categoria;
+import br.com.bookstore.model.Livro;
 
-public class LivroDTO {
+import java.io.Serializable;
+
+public class LivroDTO implements Serializable {
+
+    private static final long serialVersionUID = 1l;
 
     private Integer id;
     private String titulo;
     private String nome_autor;
+
     private String texto;
-    private Categoria categoria;
+
+    public LivroDTO() {
+    }
+
+    public LivroDTO(Livro obj) {
+        this.id = obj.getId();
+        this.titulo = obj.getTitulo();
+        this.nome_autor = obj.getNome_autor();
+        this.texto = obj.getTexto();
+
+    }
 
 
     public Integer getId() {
@@ -41,13 +56,5 @@ public class LivroDTO {
 
     public void setTexto(String texto) {
         this.texto = texto;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
     }
 }
