@@ -1,14 +1,17 @@
 package br.com.bookstore.service;
 
+import br.com.bookstore.dtos.LivroDTO;
 import br.com.bookstore.exceptions.DataIntegrityViolationException;
 import br.com.bookstore.exceptions.ObjectNotFoundException;
 import br.com.bookstore.model.Categoria;
 import br.com.bookstore.model.Livro;
+import br.com.bookstore.repository.CategoriaRepository;
 import br.com.bookstore.repository.LivroRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +25,9 @@ public class LivroService {
     private CategoriaService categoriaService;
 
     @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     public Livro findById(Integer id) {
@@ -30,7 +36,8 @@ public class LivroService {
     }
 
     public List<Livro> findAllLivroByCategoriaNome(String nome) {
-        return livroRepository.findByCategoriaNomeContaining(nome);
+
+           return livroRepository.findByCategoriaNomeContaining(nome);
 
     }
 
@@ -39,9 +46,17 @@ public class LivroService {
         return livroRepository.findAllByCategoria(id_cat);
     }
 
-    public Livro upDate(Livro obj) {
-        findById(obj.getId());
-        return livroRepository.save(obj);
+    public Livro upDate(Integer id, LivroDTO obj) {
+        Livro newObj = findById(id);
+        upDateData(newObj, obj);
+        return livroRepository.save(newObj);
+    }
+
+    private void upDateData(Livro newObj, LivroDTO obj) {
+        newObj.setTitulo(obj.getTitulo());
+        newObj.setNome_autor(obj.getNome_autor());
+        newObj.setTexto(obj.getTexto());
+        newObj.setLivroEnum(obj.getLivroEnum());
     }
 
     public Livro save(Integer id_cat, Livro obj) {

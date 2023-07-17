@@ -1,5 +1,6 @@
 package br.com.bookstore.model;
 
+import br.com.bookstore.enuns.LivroEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
@@ -25,6 +26,9 @@ public class Livro implements Serializable {
     @NotBlank(message = "O campo TEXTO é requerido")
     @Length(min = 10, max = 2000000, message = "O campo TEXTO deve ter entre 10 e 2000000 caracteres")
     private String texto;
+
+    private LivroEnum livroEnum;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "categoria_id")
@@ -34,11 +38,12 @@ public class Livro implements Serializable {
         super();
     }
 
-    public Livro(Integer id, String titulo, String nome_autor, String texto, Categoria categoria) {
+    public Livro(Integer id, String titulo, String nome_autor, String texto, LivroEnum livroEnum, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.nome_autor = nome_autor;
         this.texto = texto;
+        this.livroEnum = livroEnum;
         this.categoria = categoria;
     }
 
@@ -72,6 +77,14 @@ public class Livro implements Serializable {
 
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+
+    public LivroEnum getLivroEnum() {
+        return livroEnum;
+    }
+
+    public void setLivroEnum(LivroEnum livroEnum) {
+        this.livroEnum = livroEnum;
     }
 
     public Categoria getCategoria() {

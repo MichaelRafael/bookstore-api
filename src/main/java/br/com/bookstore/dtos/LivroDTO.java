@@ -1,5 +1,6 @@
 package br.com.bookstore.dtos;
 
+import br.com.bookstore.enuns.LivroEnum;
 import br.com.bookstore.model.Livro;
 
 import java.io.Serializable;
@@ -14,6 +15,8 @@ public class LivroDTO implements Serializable {
 
     private String texto;
 
+    private LivroEnum livroEnum;
+
     public LivroDTO() {
     }
 
@@ -22,9 +25,9 @@ public class LivroDTO implements Serializable {
         this.titulo = obj.getTitulo();
         this.nome_autor = obj.getNome_autor();
         this.texto = obj.getTexto();
+        this.livroEnum = obj.getLivroEnum();
 
     }
-
 
     public Integer getId() {
         return id;
@@ -56,5 +59,13 @@ public class LivroDTO implements Serializable {
 
     public void setTexto(String texto) {
         this.texto = texto;
+    }
+
+    public LivroEnum getLivroEnum() {
+        return livroEnum;
+    }
+
+    public void setLivroEnum(LivroEnum livroEnum) {
+        this.livroEnum = livroEnum;
     }
 }

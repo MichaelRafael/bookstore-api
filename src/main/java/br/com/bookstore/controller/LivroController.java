@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/livro")
 public class LivroController {
@@ -41,8 +42,8 @@ public class LivroController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Livro> upDate(@PathVariable Integer id_cat, @Valid @RequestBody Livro obj) {
-        return ResponseEntity.ok().body(livroService.save(id_cat, obj));
+    public ResponseEntity<Livro> upDate(@PathVariable Integer id_cat, @Valid @RequestBody LivroDTO obj) {
+        return ResponseEntity.ok().body(livroService.upDate(id_cat, obj));
     }
 
     @PatchMapping(value = "/{id}")
